@@ -2,6 +2,7 @@ import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/core'
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +22,15 @@ const styles = StyleSheet.create({
 })
 
 const Navbar: React.FC = () => {
+  const navigation = useNavigation()
+
+  const goBack = () => {
+    navigation.goBack()
+  }
+
   return (
     <View style={styles.container}>
-      <Feather name="arrow-left" style={styles.leftArrow} />
+      <Feather name="arrow-left" style={styles.leftArrow} onPress={goBack} />
       <Feather name="more-vertical" style={styles.options} />
     </View>
   )
