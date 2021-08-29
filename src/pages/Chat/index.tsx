@@ -119,12 +119,15 @@ const styles = StyleSheet.create({
     elevation: 18
   },
   input: {
+    flex: 1,
     paddingLeft: 25,
     fontFamily: 'Roboto Bold',
     fontSize: 15,
     letterSpacing: 0.5
   },
   iconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#eb9dce',
     padding: 10,
     borderRadius: 20,
@@ -146,7 +149,6 @@ const styles = StyleSheet.create({
 const Chat: React.FC<ChatProps> = ({ route }) => {
   const contact = route.params.contact
   const navigation = useNavigation()
-  let currentMessage = ''
 
   const [messages, setMessages] = useState(messagesData)
   const [inputValue, setInputValue] = useState('')
@@ -168,17 +170,34 @@ const Chat: React.FC<ChatProps> = ({ route }) => {
     setInputValue('')
   }
 
+  const handleNavigation = () => {
+    navigation.navigate('Profile', {
+      profileInfo: {
+        ...contact,
+        info: [
+          {
+            label: 'Photos',
+            value: 456
+          },
+          { label: 'Followers', value: 602 },
+          { label: 'Follows', value: 290 }
+        ]
+      }
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Feather name="arrow-left" style={styles.leftArrow} onPress={goBack} />
-
-        <Image
-          source={{ uri: contact.uri }}
-          style={styles.image}
-          width={50}
-          height={50}
-        />
+        <TouchableWithoutFeedback onPress={handleNavigation}>
+          <Image
+            source={{ uri: contact.uri }}
+            style={styles.image}
+            width={50}
+            height={50}
+          />
+        </TouchableWithoutFeedback>
         <Text style={styles.name}>{contact.name}</Text>
         {contact.online && <View style={styles.status} />}
       </View>
