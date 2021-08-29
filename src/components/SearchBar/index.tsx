@@ -2,6 +2,7 @@ import React from 'react'
 import { Feather } from '@expo/vector-icons'
 
 import { StyleSheet, View, TextInput } from 'react-native'
+import { SearchBarProps } from './SearchBar'
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.48,
     shadowRadius: 11.95,
-
     elevation: 18
   },
   searchWrapper: {
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.48,
     shadowRadius: 5,
-
     elevation: 18
   },
   searchIcon: {
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   input: {
+    flex: 1,
     paddingLeft: 25,
     fontFamily: 'Roboto Bold',
     fontSize: 15,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchFunction }) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchWrapper}>
@@ -57,6 +57,7 @@ const SearchBar: React.FC = () => {
         autoCapitalize="none"
         style={styles.input}
         placeholderTextColor="#BACAD8"
+        onChangeText={text => searchFunction(text)}
       />
     </View>
   )

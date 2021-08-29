@@ -29,11 +29,21 @@ const styles = StyleSheet.create({
   }
 })
 
-const Contact: React.FC<ContactProps> = ({ name, status, uri = 'none' }) => {
+const Contact: React.FC<ContactProps> = ({
+  name,
+  status,
+  uri = 'none',
+  online
+}) => {
   const navigation = useNavigation()
 
   const handleNavigateChat = () => {
-    navigation.navigate('Chat')
+    const contact = {
+      name,
+      uri,
+      online
+    }
+    navigation.navigate('Chat', { contact })
   }
 
   return (
